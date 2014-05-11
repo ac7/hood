@@ -10,6 +10,7 @@ function Archer:__init()
 	self.y = love.window.getHeight() / 2
 	self.y_offset = 0
 	self.pulse = 0
+	self.speed = 256.0
 end
 
 function Archer:update(dt)
@@ -32,7 +33,6 @@ function Archer:shoot(target_x, target_y)
 	local arrow = Arrow(self, self.x, self.y, target_x, target_y)
 	table.insert(state.actors, arrow)
 end
-
 
 return Archer
 
