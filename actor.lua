@@ -21,7 +21,7 @@ end
 
 function Actor:draw()
 	love.graphics.setColor(255,255,255)
-	love.graphics.draw(self.image, self.x, self.y, 0, 1, 1, -self.width/2, -self.height/2)
+	love.graphics.draw(self.image, self.x, self.y, 0, 1, 1, self.width/2, self.height/2)
 end
 
 return Actor
