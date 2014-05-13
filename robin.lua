@@ -21,7 +21,7 @@ end
 
 function Robin:mousereleased(mx, my, button)
 	if button == "l" then
-		self:shoot(mx, my)
+		self:shoot(mx + state.offset_x, my + state.offset_y)
 	end
 end
 

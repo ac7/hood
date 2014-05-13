@@ -17,6 +17,8 @@ function love.load()
 	states.play = require "play"
 	set_state(states.play)
 
+	width, height = love.window.getDimensions()
+
 	for _,v in pairs({"keypressed", "mousepressed", "mousereleased"}) do
 		love[v] = function(...)
 			if state and state[v] then

@@ -1,13 +1,14 @@
 
 local Actor = require "actor"
+local Human = require "human"
 local Arrow = require "arrow"
 
-local Archer = Actor:extends()
+local Archer = Human:extends()
 
 function Archer:__init()
 	Archer.super.__init(self, "data/archer.png")
-	self.x = love.window.getWidth() / 2
-	self.y = love.window.getHeight() / 2
+	self.x = 0
+	self.y = 0
 	self.y_offset = 0
 	self.pulse = 0
 	self.speed = 256.0
@@ -18,10 +19,10 @@ function Archer:update(dt)
 	self.y_offset = math.sin(self.pulse) * 8
 end
 
-function Archer:draw()
+function Archer:draw(offset_x, offset_y)
 	local old_y = self.y
 	self.y = self.y + self.y_offset
-	Archer.super.draw(self)
+	Archer.super.draw(self, offset_x, offset_y)
 	self.y = old_y
 end
 

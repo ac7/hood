@@ -4,6 +4,7 @@ local State = class()
 function State:__init()
 	self.actors = {}
 	self.bg_color = {255, 255, 255}
+	self.offset_x, self.offset_y = 0, 0
 end
 
 function State:update(dt)
@@ -18,17 +19,21 @@ function State:update(dt)
 	for i, v in pairs(self.actors) do
 		assert(v)
 		assert(v.update)
-		if v:update(dt) == false then
+		if not v.active then
 			self.actors[i] = nil
+		else
+			v:update(dt)
 		end
 	end
 end
 
 function State:draw()
+	assert(self.offset_x)
+	assert(self.offset_y)
 	for _, v in pairs(self.actors) do
 		assert(v)
 		assert(v.draw)
-		v:draw()
+		v:draw(self.offset_x, self.offset_y)
 	end
 end
 
