@@ -1,11 +1,11 @@
 
-local Actor = class({
+local Actor = class{
 	x = 0.0,
 	y = 0.0,
 	name = "Actor",
 	image = nil,
 	active = true,
-})
+}
 
 function Actor:__init(image)
 	assert(image, "Invalid image " .. tostring(image) .. " provided to Actor constructor.")

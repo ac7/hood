@@ -2,19 +2,20 @@
 local Actor = require "actor"
 local util = require "util"
 
-local Arrow = Actor:extends()
+local Arrow = Actor:extends{
+	speed = 512,
+	damage = 16,
+}
 
 function Arrow:__init(parent, x, y, target_x, target_y)
 	Arrow.super.__init(self, "data/arrow.png")
+
 	for _, v in pairs({x, y, target_x, target_y}) do
 		assert(type(v) == "number")
 	end
 	self.x = x
 	self.y = y
-
 	self.angle = math.atan2(target_x - self.x, target_y - self.y)
-	self.speed = 512.0
-	self.damage = 16.0
 
 	if parent then
 		assert(parent:is(Actor))
