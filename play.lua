@@ -2,6 +2,7 @@
 local State = require "state"
 local Robin = require "robin"
 local Archer = require "archer"
+local Tree = require "tree"
 
 local Play = State:extends()
 
@@ -20,6 +21,18 @@ function Play:__init()
 	actor = Archer()
 	actor.x = 128
 	actor.y = 48
+	table.insert(self.actors, actor)
+	actor = Tree()
+	actor.x = 255
+	actor.y = -320
+	table.insert(self.actors, actor)
+	actor = Tree()
+	actor.x = 0
+	actor.y = -320
+	table.insert(self.actors, actor)
+	actor = Tree()
+	actor.x = -255
+	actor.y = 320
 	table.insert(self.actors, actor)
 
 	self.bg_color = {128, 128, 255}
