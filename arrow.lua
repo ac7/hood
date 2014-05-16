@@ -6,6 +6,7 @@ local image_manager = require "image_manager"
 local Arrow = Actor:extends{
 	speed = 512,
 	damage = 16,
+	collideable = false,
 }
 
 function Arrow:__init(parent, x, y, target_x, target_y)
@@ -24,11 +25,10 @@ function Arrow:__init(parent, x, y, target_x, target_y)
 	end
 end
 
-function Arrow:update(dt)
-	self.x = self.x + math.sin(self.angle) * dt * self.speed
-	self.y = self.y + math.cos(self.angle) * dt * self.speed
-
-	for _,v in pairs(state.actors) do
+function Arrow:move(delta_x, delta_y)
+	self.x = self.x + delta_x
+	self.y = self.y + delta_y
+	for _,v in pairs(self:find_collisions(self.x, self.y)) do
 		if v.active and v ~= self.parent and v ~= self
 		and v.take_damage
 		and util.dist(self.x, self.y, v.x, v.y) < self.width then
@@ -37,6 +37,10 @@ function Arrow:update(dt)
 			break
 		end
 	end
+end
+
+function Arrow:update(dt)
+	self:move(math.sin(self.angle) * dt * self.speed, math.cos(self.angle) * dt * self.speed)
 end
 
 function Arrow:draw(offset_x, offset_y)

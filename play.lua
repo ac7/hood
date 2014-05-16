@@ -9,7 +9,9 @@ local Play = State:extends()
 function Play:__init()
 	Play.super.__init(self)
 	self.player = Robin()
+	self.player.x = -200
 	table.insert(self.actors, self.player)
+
 	actor = Archer()
 	actor.x = 32
 	actor.y = 32

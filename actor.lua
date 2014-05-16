@@ -1,5 +1,6 @@
 
 local image_manager = require "image_manager"
+local util = require "util"
 
 local Actor = class{
 	x = 0.0,
@@ -7,6 +8,7 @@ local Actor = class{
 	name = "Actor",
 	image = nil,
 	active = true,
+	collideable = true,
 }
 
 function Actor:__init(image)
@@ -25,6 +27,29 @@ function Actor:draw(camera_x, camera_y)
 
 	love.graphics.setColor(255,255,255)
 	love.graphics.draw(self.image, self.x - camera_x, self.y - camera_y, 0, 1, 1, self.width/2, self.height/2)
+end
+
+
+function Actor:find_collisions(x_pos, y_pos)
+	local x_pos = x_pos or self.x
+	local y_pos = y_pos or self.y
+	local collisions = {}
+	for _, actor in pairs(state.actors) do
+		if actor ~= self and actor.collideable and util.dist(actor.x, actor.y, x_pos, y_pos) < (self.width + self.height + actor.width + actor.height) / 6 then
+			table.insert(collisions, actor)
+		end
+	end
+	return collisions
+end
+
+function Actor:move(delta_x, delta_y)
+	assert(type(delta_x) == "number")
+	assert(type(delta_y) == "number")
+	local new_x, new_y = self.x + delta_x, self.y + delta_y
+	if #self:find_collisions(new_x, new_y) > 0 then
+		return
+	end
+	self.x, self.y = new_x, new_y
 end
 
 return Actor
