@@ -48,3 +48,10 @@ function love.keyreleased(key, unicode)
 	end
 end
 
+function love.resize(new_width, new_height)
+	assert(type(new_width) == "number")
+	assert(type(new_height) == "number")
+	width = new_width
+	height = new_height
+end
+

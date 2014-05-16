@@ -6,6 +6,7 @@ function love.conf(t)
 	t.window.title = "robinhood"
 	t.window.width = 960
 	t.window.height = 540
+	t.window.resizable = true
 
 	t.modules.physics = false
 	t.modules.joystick = false
