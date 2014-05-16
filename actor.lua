@@ -1,4 +1,6 @@
 
+local image_manager = require "image_manager"
+
 local Actor = class{
 	x = 0.0,
 	y = 0.0,
@@ -8,13 +10,10 @@ local Actor = class{
 }
 
 function Actor:__init(image)
-	assert(image, "Invalid image " .. tostring(image) .. " provided to Actor constructor.")
-	if type(image) == "string" then
-		image = love.graphics.newImage(image)
-	end
-	self.image = image
-	self.width = image:getWidth()
-	self.height = image:getHeight()
+	assert(type(image) == "string", "Invalid image " .. tostring(image) .. " provided to Actor constructor.")
+	self.image = image_manager:get(image)
+	self.width = self.image:getWidth()
+	self.height = self.image:getHeight()
 end
 
 function Actor:update(dt)

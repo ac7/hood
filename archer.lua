@@ -11,7 +11,7 @@ local Archer = Human:extends{
 }
 
 function Archer:__init()
-	Archer.super.__init(self, "data/archer.png")
+	Archer.super.__init(self, "archer.png")
 	self.x = 0
 	self.y = 0
 end

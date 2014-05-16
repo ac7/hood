@@ -1,6 +1,7 @@
 
 local Actor = require "actor"
 local util = require "util"
+local image_manager = require "image_manager"
 
 local Arrow = Actor:extends{
 	speed = 512,
@@ -8,7 +9,7 @@ local Arrow = Actor:extends{
 }
 
 function Arrow:__init(parent, x, y, target_x, target_y)
-	Arrow.super.__init(self, "data/arrow.png")
+	Arrow.super.__init(self, "arrow.png")
 
 	for _, v in pairs({x, y, target_x, target_y}) do
 		assert(type(v) == "number")
