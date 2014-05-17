@@ -26,6 +26,10 @@ function Play:__init()
 	actor.x = 128
 	actor.y = 48
 	table.insert(self.actors, actor)
+	actor = NPC("hostile", factions.PRINCE_JOHN)
+	actor.x = 100
+	actor.y = -128
+	table.insert(self.actors, actor)
 	actor = Tree()
 	actor.x = 255
 	actor.y = -320
