@@ -1,7 +1,6 @@
 
 local State = require "state"
 local Robin = require "robin"
-local Archer = require "archer"
 local Tree = require "tree"
 local NPC = require "npc"
 local factions = require "factions"
@@ -14,7 +13,7 @@ function Play:__init()
 	self.player.x = -200
 	table.insert(self.actors, self.player)
 
-	actor = NPC("hostile", factions.MERRY_MEN)
+	local actor = NPC("hostile", factions.MERRY_MEN)
 	actor.x = 32
 	actor.y = 128
 	table.insert(self.actors, actor)
@@ -47,7 +46,7 @@ function Play:__init()
 end
 
 function Play:mousereleased(mx, my, button)
-	assert(self.player:is(Archer))
+	assert(self.player:is(Robin))
 	self.player:mousereleased(mx, my, button)
 end
 
