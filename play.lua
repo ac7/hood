@@ -3,6 +3,7 @@ local State = require "state"
 local Robin = require "robin"
 local Archer = require "archer"
 local Tree = require "tree"
+local NPC = require "npc"
 
 local Play = State:extends()
 
@@ -12,15 +13,15 @@ function Play:__init()
 	self.player.x = -200
 	table.insert(self.actors, self.player)
 
-	actor = Archer()
+	actor = NPC()
 	actor.x = 32
 	actor.y = 32
 	table.insert(self.actors, actor)
-	actor = Archer()
+	actor = NPC()
 	actor.x = -128
 	actor.y = 48
 	table.insert(self.actors, actor)
-	actor = Archer()
+	actor = NPC()
 	actor.x = 128
 	actor.y = 48
 	table.insert(self.actors, actor)
