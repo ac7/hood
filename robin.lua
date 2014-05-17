@@ -8,21 +8,18 @@ local Robin = Archer:extends{
 
 function Robin:update(dt)
 	Robin.super.update(self, dt)
-	local delta_x = 0
-	local delta_y = 0
-	if love.keyboard.isDown("a") then
-		delta_x = -dt * self.speed
-	end
-	if love.keyboard.isDown("d") then
-		delta_x = dt * self.speed
-	end
-	if love.keyboard.isDown("w") then
-		delta_y = -dt * self.speed
-	end
-	if love.keyboard.isDown("s") then
-		delta_y = dt * self.speed
-	end
-	if delta_x ~= 0 or delta_y ~= 0 then
+	local dir_x = 0
+	local dir_y = 0
+
+	if love.keyboard.isDown("w") then dir_y = -1; end
+	if love.keyboard.isDown("a") then dir_x = -1; end
+	if love.keyboard.isDown("s") then dir_y = 1; end
+	if love.keyboard.isDown("d") then dir_x = 1; end
+
+	if dir_x ~= 0 or dir_y ~= 0 then
+		local angle = math.atan2(dir_x, dir_y)
+		local delta_x = math.sin(angle) * dt * self.speed
+		local delta_y = math.cos(angle) * dt * self.speed
 		local x_collision, y_collision = false, false
 		if #self:find_collisions(self.x + delta_x, self.y) > 0 then
 			x_collision = true
