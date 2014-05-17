@@ -4,6 +4,7 @@ local Robin = require "robin"
 local Archer = require "archer"
 local Tree = require "tree"
 local NPC = require "npc"
+local factions = require "factions"
 
 local Play = State:extends()
 
@@ -13,15 +14,15 @@ function Play:__init()
 	self.player.x = -200
 	table.insert(self.actors, self.player)
 
-	actor = NPC()
+	actor = NPC("hostile", factions.MERRY_MEN)
 	actor.x = 32
-	actor.y = 32
+	actor.y = 128
 	table.insert(self.actors, actor)
-	actor = NPC()
+	actor = NPC("hostile", factions.MERRY_MEN)
 	actor.x = -128
 	actor.y = 48
 	table.insert(self.actors, actor)
-	actor = NPC()
+	actor = NPC("hostile", factions.PRINCE_JOHN)
 	actor.x = 128
 	actor.y = 48
 	table.insert(self.actors, actor)
@@ -38,7 +39,7 @@ function Play:__init()
 	actor.y = 320
 	table.insert(self.actors, actor)
 
-	self.bg_color = {128, 128, 255}
+	self.bg_color = {108, 215, 108}
 end
 
 function Play:mousereleased(mx, my, button)
