@@ -27,6 +27,10 @@ function Actor:draw(camera_x, camera_y)
 
 	love.graphics.setColor(255,255,255)
 	love.graphics.draw(self.image, self.x - camera_x, self.y - camera_y, 0, 1, 1, self.width/2, self.height/2)
+
+	if self.get_faction then
+		love.graphics.printf(tostring(self:get_faction()), self.x - camera_x, self.y - camera_y + self.height, 0, "left")
+	end
 end
 
 
@@ -47,9 +51,10 @@ function Actor:move(delta_x, delta_y)
 	assert(type(delta_y) == "number")
 	local new_x, new_y = self.x + delta_x, self.y + delta_y
 	if #self:find_collisions(new_x, new_y) > 0 then
-		return
+		return false
 	end
 	self.x, self.y = new_x, new_y
+	return true
 end
 
 return Actor

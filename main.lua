@@ -16,6 +16,7 @@ function love.load()
 	states = {}
 	states.play = require "play"
 	set_state(states.play)
+	math.randomseed(os.time())
 
 	width, height = love.window.getDimensions()
 
