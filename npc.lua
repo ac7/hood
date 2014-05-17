@@ -26,18 +26,8 @@ function NPC:update(dt)
 		if util.dist(self.x, self.y, self.wander_point_x, self.wander_point_y) < (self.width + self.height) / 3 then
 			choose_new_point = true
 		else
-			local path_clear
-			if self.wander_point_x < self.x then
-				path_clear = self:move(-self.speed*dt, 0)
-			else
-				path_clear = self:move(self.speed*dt, 0)
-			end
-
-			if self.wander_point_y < self.y then
-				path_clear = self:move(0, -self.speed*dt)
-			else
-				path_clear = self:move(0, self.speed*dt)
-			end
+			local angle = math.atan2(self.wander_point_x - self.x, self.wander_point_y - self.y)
+			local path_clear = self:move(math.sin(angle) * dt * self.speed, math.cos(angle) * dt * self.speed)
 
 			if not path_clear then
 				self.wander_point_x = self.x + (math.random() - 0.5) * self.wander_distance
