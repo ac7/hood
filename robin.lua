@@ -1,7 +1,10 @@
 
 local Archer = require "archer"
+local factions = require "factions"
 
-local Robin = Archer:extends()
+local Robin = Archer:extends{
+	faction = factions.MERRY_MEN
+}
 
 function Robin:update(dt)
 	Robin.super.update(self, dt)
