@@ -27,6 +27,10 @@ function Actor:draw(camera_x, camera_y)
 
 	love.graphics.setColor(255,255,255)
 	love.graphics.draw(self.image, self.x - camera_x, self.y - camera_y, 0, 1, 1, self.width/2, self.height/2)
+
+	if self.get_faction then
+		love.graphics.printf(tostring(self:get_faction()), self.x - camera_x, self.y - camera_y + self.height, 0, "left")
+	end
 end
 
 
