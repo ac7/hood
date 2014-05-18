@@ -5,6 +5,7 @@ local Tree = require "tree"
 local NPC = require "npc"
 local factions = require "factions"
 local HUD = require "hud"
+local Item = require "item"
 
 local Play = State:extends()
 
@@ -18,7 +19,7 @@ function Play:__init()
 	actor.x = 32
 	actor.y = 128
 	table.insert(self.actors, actor)
-	actor = NPC("hostile", factions.MERRY_MEN)
+	actor = Item("rock.png")
 	actor.x = -128
 	actor.y = 48
 	table.insert(self.actors, actor)
