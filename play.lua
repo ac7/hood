@@ -22,6 +22,12 @@ function Play:__init()
 	actor = Item("rock.png")
 	actor.x = -128
 	actor.y = 48
+	actor.name = "Rock1"
+	table.insert(self.actors, actor)
+	actor = Item("rock.png")
+	actor.x = 128
+	actor.y = 48
+	actor.name = "Rock2"
 	table.insert(self.actors, actor)
 	actor = NPC("hostile", factions.PRINCE_JOHN)
 	actor.x = 128
@@ -66,5 +72,11 @@ function Play:draw()
 	self.hud:draw()
 end
 
-return Play()
+function Play:keypressed(key, unicode)
+	if key == "q" then
+		set_state(states.inventory)
+	end
+end
+
+return Play
 
