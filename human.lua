@@ -31,7 +31,7 @@ end
 function Human:get_faction()
 	-- an assertion that our faction exists in the list of factions
 	for _, v in pairs(factions) do
-		if self.faction == v then
+		if v == self.faction then
 			return self.faction
 		end
 	end
@@ -45,6 +45,7 @@ function Human:get_bulk()
 		assert(v and v:is(Item))
 		total = total + v.bulk
 	end
+	return total
 end
 
 function Human:take(item)
@@ -57,6 +58,7 @@ function Human:take(item)
 		for i, v in pairs(item.holder.inventory) do
 			if v == item then
 				table.remove(item.holder.inventory, i)
+				break
 			end
 		end
 	end
