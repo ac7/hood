@@ -14,8 +14,12 @@ local Actor = class{
 }
 
 function Actor:__init(image)
-	assert(type(image) == "string", "Invalid image " .. tostring(image) .. " provided to Actor constructor.")
-	self.image = image_manager:get(image)
+	assert(image, "Invalid image " .. tostring(image) .. " provided to Actor constructor.")
+	if type(image) == "string" then
+		self.image = image_manager:get(image)
+	else
+		self.image = image
+	end
 	self.width = self.image:getWidth()
 	self.height = self.image:getHeight()
 end
@@ -29,9 +33,10 @@ function Actor:draw(camera_x, camera_y)
 
 	love.graphics.setColor(255,255,255)
 	love.graphics.draw(self.image, self.x - camera_x, self.y - camera_y, 0, 1, 1, self.width/2, self.height/2)
-	love.graphics.circle("line", self.x - camera_x, self.y - camera_y, (self.width + self.height)/3, 32)
+	--love.graphics.circle("line", self.x - camera_x, self.y - camera_y, (self.width + self.height)/3, 32)
 
 	if self.get_faction then
+		love.graphics.setFont(fonts.small)
 		love.graphics.printf(tostring(self:get_faction()), self.x - camera_x, self.y - camera_y + self.height, 0, "left")
 	end
 end
