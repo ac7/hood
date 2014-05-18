@@ -82,7 +82,7 @@ function Human:drop(item)
 			table.remove(self.inventory, k)
 			table.insert(states.play.actors, v)
 			v.x = self.x + math.random(v.width) - v.width/2
-			v.y = self.y + math.random(v.height) - v.height/2
+			v.y = self.y + math.max(self.height, v.height) - math.min(self.height, v.height) * 1.2
 			return
 		end
 	end
