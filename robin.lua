@@ -8,7 +8,6 @@ local Robin = Archer:extends{
 }
 
 function Robin:update(dt)
-	Robin.super.update(self, dt)
 	local dir_x = 0
 	local dir_y = 0
 
@@ -23,6 +22,7 @@ function Robin:update(dt)
 		local delta_y = math.cos(angle) * dt * self.speed
 		Robin.super.move(self, delta_x, delta_y)
 	end
+	Robin.super.update(self, dt)
 end
 
 function Robin:mousereleased(mx, my, button)

@@ -27,11 +27,21 @@ function Human:__init(images)
 end
 
 function Human:update(dt)
-	self.image = self.images[self.direction][math.floor(self.walk)]
-	self.walk = self.walk + dt * 3
-	if self.walk >= 4 then
+	if self.walking then
+		self.image = self.images[self.direction][math.floor(self.walk)]
+		self.walk = self.walk + dt * 5
+		if self.walk >= #self.images[self.direction]+1 then
+			self.walk = 1
+		end
+	else
+		self.image = self.images[self.direction][2]
 		self.walk = 1
 	end
+end
+
+function Human:draw(offset_x, offset_y)
+	Human.super.draw(self, offset_x, offset_y)
+	self.walking = false
 end
 
 function Human:take_damage(amount)
@@ -120,6 +130,7 @@ function Human:move(delta_x, delta_y)
 	if #new_direction > 0 then
 		self.direction = new_direction
 	end
+	self.walking = true
 
 	return Human.super.move(self, delta_x, delta_y)
 end
