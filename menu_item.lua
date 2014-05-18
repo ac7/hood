@@ -20,7 +20,7 @@ function MenuItem:draw()
 		love.graphics.draw(self.item.image, self.x, self.y, 0, scale, scale, self.item.width/2, self.item.height/2)
 		assert(type(self.item.name) == "string")
 		love.graphics.setFont(fonts.medium)
-		love.graphics.printf(self.item.name, self.x - 200, self.y, 400, "center")
+		love.graphics.printf(self.item.name .. " (" .. self.item.bulk .. " lbs)", self.x - 200, self.y, 400, "center")
 	else
 		love.graphics.setFont(fonts.medium)
 		love.graphics.printf("Dropped", self.x - 200, self.y, 400, "center")
