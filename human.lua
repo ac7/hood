@@ -12,12 +12,26 @@ local Human = Actor:extends{
 	health = 50,
 	max_hp = 50,
 	max_bulk = 25.0,
+	direction = "south",
+	walk = 1,
+	walking = false,
 	faction = factions.MERRY_MEN,
 }
 
-function Human:__init(image)
-	Human.super.__init(self, image)
+function Human:__init(images)
+	assert(images)
+	self.images = images
+	self.image = self.images[self.direction][math.floor(self.walk)]
+	Human.super.__init(self, self.image)
 	self.inventory = {}
+end
+
+function Human:update(dt)
+	self.image = self.images[self.direction][math.floor(self.walk)]
+	self.walk = self.walk + dt * 3
+	if self.walk >= 4 then
+		self.walk = 1
+	end
 end
 
 function Human:take_damage(amount)
@@ -81,12 +95,33 @@ function Human:drop(item)
 		if v == item then
 			table.remove(self.inventory, k)
 			table.insert(states.play.actors, v)
-			v.x = self.x + math.random(v.width) - v.width/2
-			v.y = self.y + math.max(self.height, v.height) - math.min(self.height, v.height) * 1.2
+			v.x = self.x + (math.random(v.width) - v.width/2) * 0.5
+			v.y = self.y + math.max(self.height, v.height) - math.min(self.height, v.height)/2
 			return
 		end
 	end
 	error("Cannot drop item not present in inventory.")
+end
+
+function Human:move(delta_x, delta_y)
+	local new_direction = ""
+
+	if delta_y < -0.1 then
+		new_direction = "north"
+	elseif delta_y > 0.1 then
+		new_direction = "south"
+	end
+	if delta_x < -0.1 then
+		new_direction = new_direction .. "west"
+	elseif delta_x > 0.1 then
+		new_direction = new_direction .. "east"
+	end
+
+	if #new_direction > 0 then
+		self.direction = new_direction
+	end
+
+	return Human.super.move(self, delta_x, delta_y)
 end
 
 return Human

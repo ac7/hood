@@ -21,7 +21,7 @@ function Play:__init()
 	actor.y = 128
 	table.insert(self.actors, actor)
 	actor = Rock()
-	actor.x = -128
+	actor.x = -300
 	actor.y = 48
 	table.insert(self.actors, actor)
 	actor = Rock()
