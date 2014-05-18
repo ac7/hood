@@ -14,9 +14,9 @@ end
 
 function love.load()
 	fonts = {
-		small = love.graphics.newFont(16),
-		medium = love.graphics.newFont(25),
-		large = love.graphics.newFont(30),
+		small = love.graphics.newFont("data/ModernAntiqua.ttf", 16),
+		medium = love.graphics.newFont("data/ModernAntiqua.ttf", 25),
+		large = love.graphics.newFont("data/ModernAntiqua.ttf", 30),
 	}
 	width, height = love.window.getDimensions()
 

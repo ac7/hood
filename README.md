@@ -17,4 +17,5 @@ aren't any packaged releases yet because the game is still in early development.
 - Lua
 - LOVE2D
 - 30log
+- [ModernAntiqua.ttf](http://openfontlibrary.org/en/font/modernantiqua)
 
