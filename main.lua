@@ -14,7 +14,7 @@ end
 
 function love.load()
 	fonts = {
-		small = love.graphics.newFont(12),
+		small = love.graphics.newFont(16),
 		medium = love.graphics.newFont(25),
 		large = love.graphics.newFont(30),
 	}
