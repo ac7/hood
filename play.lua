@@ -29,7 +29,7 @@ function Play:__init()
 	actor.y = 48
 	table.insert(self.actors, actor)
 	actor = NPC("hostile", factions.PRINCE_JOHN)
-	actor.x = 128
+	actor.x = 240
 	actor.y = 48
 	table.insert(self.actors, actor)
 	actor = NPC("hostile", factions.PRINCE_JOHN)
