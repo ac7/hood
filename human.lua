@@ -5,7 +5,7 @@ local factions = require "factions"
 
 --[[
 --
--- Humans have a faction and health.
+-- Humans have a faction, health, and inventory.
 --
 --]]
 local Human = Actor:extends{
@@ -71,6 +71,22 @@ function Human:take(item)
 			break
 		end
 	end
+end
+
+function Human:drop(item)
+	assert(item and item:is(Item))
+	assert(item.holder == self, item.holder)
+	item.holder = nil
+	for k, v in pairs(self.inventory) do
+		if v == item then
+			table.remove(self.inventory, k)
+			table.insert(states.play.actors, v)
+			v.x = self.x + math.random(v.width) - v.width/2
+			v.y = self.y + math.random(v.height) - v.height/2
+			return
+		end
+	end
+	error("Cannot drop item not present in inventory.")
 end
 
 return Human
