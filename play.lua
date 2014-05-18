@@ -6,6 +6,7 @@ local NPC = require "npc"
 local factions = require "factions"
 local HUD = require "hud"
 local Item = require "item"
+local Rock = require "rock"
 
 local Play = State:extends()
 
@@ -19,15 +20,13 @@ function Play:__init()
 	actor.x = 32
 	actor.y = 128
 	table.insert(self.actors, actor)
-	actor = Item("rock.png")
+	actor = Rock()
 	actor.x = -128
 	actor.y = 48
-	actor.name = "Rock1"
 	table.insert(self.actors, actor)
-	actor = Item("rock.png")
+	actor = Rock()
 	actor.x = 128
 	actor.y = 48
-	actor.name = "Rock2"
 	table.insert(self.actors, actor)
 	actor = NPC("hostile", factions.PRINCE_JOHN)
 	actor.x = 128
