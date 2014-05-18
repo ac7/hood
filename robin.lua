@@ -39,6 +39,9 @@ end
 
 function Robin:mousereleased(mx, my, button)
 	assert(state)
+	if not self.active then
+		return
+	end
 	if button == "l" then
 		self:shoot(mx + state.offset_x, my + state.offset_y)
 	elseif button == "r" then
@@ -46,6 +49,7 @@ function Robin:mousereleased(mx, my, button)
 			assert(v)
 			if v:is(Item) and util.touching(self, v) then
 				self:take(v)
+				break
 			end
 		end
 	end
