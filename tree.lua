@@ -13,9 +13,5 @@ function Tree:__init()
 	Tree.super.__init(self, TreeImages[math.random(#TreeImages)])
 end
 
-function Tree:take_damage()
-	return nil
-end
-
 return Tree
 

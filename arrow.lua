@@ -31,9 +31,10 @@ function Arrow:move(delta_x, delta_y)
 	self.y = self.y + delta_y
 	for _,v in pairs(self:find_collisions(self.x, self.y)) do
 		if v.active and v ~= self.parent and v ~= self
-		and v.take_damage
 		and util.touching(self, v) then
-			v:take_damage(self.damage)
+			if v.take_damage then
+				v:take_damage(self.damage)
+			end
 			self.active = false
 			break
 		end
