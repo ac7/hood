@@ -54,6 +54,9 @@ function Play:__init()
 end
 
 function Play:mousereleased(mx, my, button)
+	if not self.player.active then
+		return
+	end
 	assert(self.player:is(Robin))
 	self.player:mousereleased(mx, my, button)
 end
@@ -72,6 +75,9 @@ function Play:draw()
 end
 
 function Play:keypressed(key, unicode)
+	if not self.player.active then
+		return
+	end
 	if key == "q" then
 		set_state(states.inventory)
 	end
