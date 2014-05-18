@@ -5,6 +5,8 @@ local util = require "util"
 local Actor = class{
 	x = 0.0,
 	y = 0.0,
+	width = 0,
+	height = 0,
 	name = "Actor",
 	image = nil,
 	active = true,
@@ -27,6 +29,7 @@ function Actor:draw(camera_x, camera_y)
 
 	love.graphics.setColor(255,255,255)
 	love.graphics.draw(self.image, self.x - camera_x, self.y - camera_y, 0, 1, 1, self.width/2, self.height/2)
+	love.graphics.circle("line", self.x - camera_x, self.y - camera_y, (self.width + self.height)/3, 32)
 
 	if self.get_faction then
 		love.graphics.printf(tostring(self:get_faction()), self.x - camera_x, self.y - camera_y + self.height, 0, "left")
