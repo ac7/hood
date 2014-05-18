@@ -6,6 +6,7 @@ local Item = Actor:extends({
 	name = "Item",
 	equippable = false,
 	holder = nil,
+	collideable = false,
 })
 
 return Item
