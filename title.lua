@@ -21,7 +21,7 @@ function Title:draw()
 	love.graphics.setFont(fonts.medium)
 	love.graphics.printf("-spacebar-", 0, height - 128 + self.offset, width, "center")
 
-	local image = image_manager:get("archer.png")
+	local image = image_manager:get("archer/archer0001.png")
 	love.graphics.draw(image, width / 2, height / 2 + self.offset, 0, 1, 1, image:getWidth()/2, image:getHeight()/2)
 end
 
