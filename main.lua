@@ -16,7 +16,7 @@ function love.load()
 	fonts = {
 		small = love.graphics.newFont("data/ModernAntiqua.ttf", 16),
 		medium = love.graphics.newFont("data/ModernAntiqua.ttf", 25),
-		large = love.graphics.newFont("data/ModernAntiqua.ttf", 30),
+		large = love.graphics.newFont("data/ModernAntiqua.ttf", 32),
 	}
 	width, height = love.window.getDimensions()
 
@@ -30,7 +30,8 @@ function love.load()
 	states = {}
 	states.play = (require "play")()
 	states.inventory = (require "inventory")()
-	set_state(states.play)
+	states.title = (require "title")()
+	set_state(states.title)
 
 	math.randomseed(os.time())
 
