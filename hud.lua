@@ -21,7 +21,7 @@ function HUD:update(dt)
 end
 
 function HUD:draw()
-	local percentage = self.health_slider / self.player.max_hp
+	local percentage = math.max(0, self.health_slider / self.player.max_hp)
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.rectangle("line", self.x-1, self.y-1, self.width+1, self.height+1)
 	love.graphics.setColor(0, 255, 0)
