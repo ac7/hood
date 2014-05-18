@@ -31,7 +31,7 @@ function Arrow:move(delta_x, delta_y)
 	for _,v in pairs(self:find_collisions(self.x, self.y)) do
 		if v.active and v ~= self.parent and v ~= self
 		and v.take_damage
-		and util.dist(self.x, self.y, v.x, v.y) < (self.width + self.height + v.width + v.height) / 4 then
+		and util.touching(self, v) then
 			v:take_damage(self.damage)
 			self.active = false
 			break
