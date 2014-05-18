@@ -7,6 +7,7 @@ local Arrow = Actor:extends{
 	speed = 512,
 	damage = 16,
 	collideable = false,
+	lifetime = 5, -- in seconds
 }
 
 function Arrow:__init(parent, x, y, target_x, target_y)
@@ -41,6 +42,10 @@ end
 
 function Arrow:update(dt)
 	self:move(math.sin(self.angle) * dt * self.speed, math.cos(self.angle) * dt * self.speed)
+	self.lifetime = self.lifetime - dt
+	if self.lifetime < 0 then
+		self.active = false
+	end
 end
 
 function Arrow:draw(offset_x, offset_y)
