@@ -19,6 +19,7 @@ function NPC:__init(strategy, faction)
 end
 
 function NPC:update(dt)
+	NPC.super.update(self, dt)
 	local choose_new_point = false
 	if not self.wander_point_x or not self.wander_point_y then
 		choose_new_point = true

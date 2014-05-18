@@ -21,19 +21,7 @@ function Robin:update(dt)
 		local angle = math.atan2(dir_x, dir_y)
 		local delta_x = math.sin(angle) * dt * self.speed
 		local delta_y = math.cos(angle) * dt * self.speed
-		local x_collision, y_collision = false, false
-		if #self:find_collisions(self.x + delta_x, self.y) > 0 then
-			x_collision = true
-		end
-		if #self:find_collisions(self.x, self.y + delta_y) > 0 then
-			y_collision = true
-		end
-		if not x_collision then
-			self.x = self.x + delta_x
-		end
-		if not y_collision then
-			self.y = self.y + delta_y
-		end
+		Robin.super.move(self, delta_x, delta_y)
 	end
 end
 

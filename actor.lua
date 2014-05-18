@@ -62,12 +62,20 @@ end
 function Actor:move(delta_x, delta_y)
 	assert(type(delta_x) == "number")
 	assert(type(delta_y) == "number")
-	local new_x, new_y = self.x + delta_x, self.y + delta_y
-	if #self:find_collisions(new_x, new_y) > 0 then
-		return false
+	local x_collision, y_collision = false, false
+	if #self:find_collisions(self.x + delta_x, self.y) > 0 then
+		x_collision = true
 	end
-	self.x, self.y = new_x, new_y
-	return true
+	if #self:find_collisions(self.x, self.y + delta_y) > 0 then
+		y_collision = true
+	end
+	if not x_collision then
+		self.x = self.x + delta_x
+	end
+	if not y_collision then
+		self.y = self.y + delta_y
+	end
+	return (x_collision or y_collision) == false
 end
 
 return Actor
