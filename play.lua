@@ -51,6 +51,9 @@ function Play:__init()
 
 	self.bg_color = {108, 215, 108}
 	self.hud = HUD(self.player)
+
+	self.offset_x = (self.player.x - width/2)
+	self.offset_y = (self.player.y - height/2)
 end
 
 function Play:mousereleased(mx, my, button)
@@ -64,12 +67,11 @@ end
 function Play:update(dt)
 	self.super.update(self, dt)
 	self.hud:update(dt)
+	self.offset_x = self.offset_x + ((self.player.x - width/2) - self.offset_x) * dt * 5
+	self.offset_y = self.offset_y + ((self.player.y - height/2) - self.offset_y) * dt * 5
 end
 
 function Play:draw()
-	self.offset_x = self.player.x - width/2
-	self.offset_y = self.player.y - height/2
-
 	Play.super.draw(self)
 	self.hud:draw()
 end
