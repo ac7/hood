@@ -7,6 +7,7 @@ local spritepack = require "spritepack"
 local Archer = Human:extends{
 	speed = 256,
 	name = "Archer",
+	arrows = 12,
 }
 
 function Archer:__init()
@@ -17,6 +18,9 @@ function Archer:shoot(target_x, target_y)
 	assert(type(target_x) == "number" and type(target_y) == "number")
 	assert(state)
 	assert(type(state.actors) == "table")
+
+	if self.arrows < 1 then return end
+	self.arrows = self.arrows - 1
 
 	self.direction = util.direction_from_delta(target_x - self.x, target_y - self.y)
 

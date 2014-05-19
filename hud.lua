@@ -28,6 +28,12 @@ function HUD:draw()
 	love.graphics.rectangle("fill", self.x, self.y, self.width * percentage, self.height)
 	love.graphics.setColor(255, 0, 0)
 	love.graphics.rectangle("fill", self.x + self.width * percentage, self.y, self.width * (1 - percentage), self.height)
+
+	love.graphics.setColor(0, 0, 0, 128)
+	love.graphics.rectangle("fill", self.x, self.y + self.height * 2, self.width * 2/3, fonts.small:getHeight() + 4)
+	love.graphics.setFont(fonts.small)
+	love.graphics.setColor(255, 255, 255)
+	love.graphics.print("Arrows: " .. self.player.arrows, self.x + 2, self.y + self.height * 2 + 2)
 end
 
 return HUD
