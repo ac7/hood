@@ -25,14 +25,24 @@ function Robin:update(dt)
 	Robin.super.update(self, dt)
 end
 
+function Robin:keyreleased(key, unicode)
+	if key == "r" then
+		self.bow_drawn = not self.bow_drawn
+	end
+end
+
 function Robin:mousereleased(mx, my, button)
 	assert(state)
 	if not self.active then
 		return
 	end
 	if button == "l" then
-		self:shoot(mx + state.offset_x, my + state.offset_y)
-	elseif button == "r" then
+		if self.bow_drawn then
+			self:shoot(mx + state.offset_x, my + state.offset_y)
+		else
+			self.bow_drawn = true
+		end
+	elseif button == "r" and not self.bow_drawn then
 		for _, v in pairs(state.actors) do
 			assert(v)
 			if v:is(Item) and util.touching(self, v) then

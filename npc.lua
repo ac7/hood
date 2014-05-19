@@ -7,7 +7,8 @@ local NPC = Archer:extends{
 	wander_point_x = nil,
 	wander_point_y = nil,
 	wander_distance = 512,
-	speed = 96,
+	walk_speed = 96,
+	run_speed = 128,
 }
 
 function NPC:__init(strategy, faction)

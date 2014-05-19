@@ -5,19 +5,38 @@ local Arrow = require "arrow"
 local spritepack = require "spritepack"
 
 local Archer = Human:extends{
-	speed = 256,
 	name = "Archer",
 	arrows = 12,
+	bow_drawn = false,
+	walk_speed = 200,
+	run_speed = 325,
 }
 
 function Archer:__init()
-	Archer.super.__init(self, spritepack("archer"))
+	self.packs = {
+		normal = spritepack("archer"),
+		bow_drawn = spritepack("archer2"),
+	}
+	Archer.super.__init(self, self.packs.normal)
+end
+
+function Archer:update(dt)
+	if self.bow_drawn then
+		self.images = self.packs.bow_drawn
+		self.speed = self.walk_speed
+	else
+		self.images = self.packs.normal
+		self.speed = self.run_speed
+	end
+	Archer.super.update(self, dt)
 end
 
 function Archer:shoot(target_x, target_y)
 	assert(type(target_x) == "number" and type(target_y) == "number")
 	assert(state)
 	assert(type(state.actors) == "table")
+
+	if not self.bow_drawn then return end
 
 	if self.arrows < 1 then return end
 	self.arrows = self.arrows - 1

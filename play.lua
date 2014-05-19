@@ -56,14 +56,6 @@ function Play:__init()
 	self.offset_y = (self.player.y - height/2)
 end
 
-function Play:mousereleased(mx, my, button)
-	if not self.player.active then
-		return
-	end
-	assert(self.player:is(Robin))
-	self.player:mousereleased(mx, my, button)
-end
-
 function Play:update(dt)
 	self.super.update(self, dt)
 	self.hud:update(dt)
@@ -83,6 +75,22 @@ function Play:keypressed(key, unicode)
 	if key == "q" then
 		set_state(states.inventory)
 	end
+end
+
+function Play:mousereleased(mx, my, button)
+	if not self.player.active then
+		return
+	end
+	assert(self.player:is(Robin))
+	self.player:mousereleased(mx, my, button)
+end
+
+function Play:keyreleased(key, unicode)
+	if not self.player.active then
+		return
+	end
+	assert(self.player.keyreleased)
+	self.player:keyreleased(key, unicode)
 end
 
 return Play
