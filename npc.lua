@@ -9,6 +9,7 @@ local NPC = Archer:extends{
 	wander_distance = 512,
 	walk_speed = 96,
 	run_speed = 128,
+	hostile_timeout = 0,
 }
 
 function NPC:__init(strategy, faction)
@@ -17,6 +18,12 @@ function NPC:__init(strategy, faction)
 	assert(type(strategy) == "string")
 	self.faction = faction
 	self.strategy = strategy
+end
+
+function NPC:take_damage(amount, angle)
+	NPC.super.take_damage(self, amount, angle)
+	self.hostile_timeout = 3
+	self.strategy = "hostile"
 end
 
 function NPC:update(dt)
@@ -39,24 +46,30 @@ function NPC:update(dt)
 
 	if choose_new_point == true then
 		if self.strategy == "wander" then
+			self.bow_drawn = false
 			self.wander_point_x = self.x + (math.random() - 0.5) * self.wander_distance
 			self.wander_point_y = self.y + (math.random() - 0.5) * self.wander_distance
 		elseif self.strategy == "hostile" then
+			self.bow_drawn = true
 			local closest_distance = nil
 			local closest_actor = nil
 
 			for _, actor in pairs(state.actors) do
 				local actor_dist = util.dist(actor.x, actor.y, self.x, self.y)
-				if actor ~= self and actor.get_faction and (not closest_distance or actor_dist < closest_distance)
-				and actor:get_faction() ~= self:get_faction() then
+				if actor ~= self and (not closest_distance or actor_dist < closest_distance)
+				and actor.get_faction and actor:get_faction() ~= self:get_faction() then
 					closest_distance = actor_dist
 					closest_actor = actor
 				end
 			end
 
 			if closest_actor == nil then
-				self.strategy = "wander"
+				self.hostile_timeout = self.hostile_timeout - dt
+				if self.hostile_timeout <= 0 then
+					self.strategy = "wander"
+				end
 			else
+				self.hostile_timeout = 3
 				if closest_actor:get_faction() ~= self:get_faction() then
 					self:shoot(closest_actor.x, closest_actor.y)
 					self.wander_point_x = self.x + (math.random() - 0.5) * self.wander_distance*2/3
