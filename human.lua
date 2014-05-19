@@ -41,6 +41,8 @@ end
 
 function Human:draw(offset_x, offset_y)
 	Human.super.draw(self, offset_x, offset_y)
+	love.graphics.setFont(fonts.small)
+	love.graphics.printf(tostring(self:get_faction()), self.x - offset_x, self.y - offset_y, 0, "left")
 	self.walking = false
 end
 
