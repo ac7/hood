@@ -18,6 +18,8 @@ function Archer:shoot(target_x, target_y)
 	assert(state)
 	assert(type(state.actors) == "table")
 
+	self.direction = util.direction_from_delta(target_x - self.x, target_y - self.y)
+
 	local arrow = Arrow(self, self.x, self.y, target_x, target_y)
 	table.insert(state.actors, arrow)
 end

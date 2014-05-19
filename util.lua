@@ -11,5 +11,22 @@ function util.touching(obj1, obj2)
 	return util.dist(obj1.x, obj1.y, obj2.x, obj2.y) < (obj1.width + obj2.width + obj1.height + obj2.height) / 4
 end
 
+function util.direction_from_delta(delta_x, delta_y)
+	local new_direction = ""
+
+	if delta_y < -0.1 then
+		new_direction = "north"
+	elseif delta_y > 0.1 then
+		new_direction = "south"
+	end
+	if delta_x < -0.1 then
+		new_direction = new_direction .. "west"
+	elseif delta_x > 0.1 then
+		new_direction = new_direction .. "east"
+	end
+
+	return #new_direction > 0 and new_direction or nil
+end
+
 return util
 

@@ -118,22 +118,7 @@ function Human:drop(item)
 end
 
 function Human:move(delta_x, delta_y)
-	local new_direction = ""
-
-	if delta_y < -0.1 then
-		new_direction = "north"
-	elseif delta_y > 0.1 then
-		new_direction = "south"
-	end
-	if delta_x < -0.1 then
-		new_direction = new_direction .. "west"
-	elseif delta_x > 0.1 then
-		new_direction = new_direction .. "east"
-	end
-
-	if #new_direction > 0 then
-		self.direction = new_direction
-	end
+	self.direction = util.direction_from_delta(delta_x, delta_y) or self.direction
 	self.walking = true
 
 	return Human.super.move(self, delta_x, delta_y)
