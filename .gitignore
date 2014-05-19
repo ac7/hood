@@ -2,4 +2,6 @@
 *~
 *.swp
 *.bak
+run.bat
+run.sh
 
