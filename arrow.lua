@@ -33,7 +33,7 @@ function Arrow:move(delta_x, delta_y)
 		if v.active and v ~= self.parent and v ~= self
 		and util.touching(self, v) then
 			if v.take_damage then
-				v:take_damage(self.damage)
+				v:take_damage(self.damage, self.angle)
 			end
 			self.active = false
 			break

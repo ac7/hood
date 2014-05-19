@@ -1,6 +1,7 @@
 
 local Actor = require "actor"
 local Item = require "item"
+local Blood = require "blood"
 local factions = require "factions"
 
 --[[
@@ -46,12 +47,13 @@ function Human:draw(offset_x, offset_y)
 	self.walking = false
 end
 
-function Human:take_damage(amount)
+function Human:take_damage(amount, angle)
 	assert(type(amount) == "number")
 	self.health = self.health - amount
 	if self.health <= 0 then
 		self.active = false
 	end
+	table.insert(states.play.actors, Blood(self, angle))
 end
 
 function Human:get_faction()
