@@ -11,7 +11,7 @@ function Blood:__init(actor, angle)
 	self.particles = {}
 	self.actor = actor
 	self.x = self.actor.x
-	self.y = self.actor.y - 9999
+	self.y = self.actor.y - 9999 -- this is so the blood is drawn underneath everything else
 	self.angle = angle
 end
 
