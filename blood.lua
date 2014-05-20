@@ -21,7 +21,7 @@ function Blood:update(dt)
 		for i=0,dt,0.01 do
 			local particle = {
 				size = math.random(4),
-				angle = (self.angle + (math.random()-0.5)/4) * (math.random() > 0.9 and -1 or 1),
+				angle = (self.angle + (math.random()-0.5)/4) + (math.random() > 0.9 and math.pi or 0),
 				speed = math.random() * 62 + 450,
 				lifetime = math.random() * 0.3,
 				fadetime = 16 + math.random() * 4,
