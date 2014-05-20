@@ -26,7 +26,7 @@ function Blood:update(dt)
 				lifetime = math.random() * 0.3,
 				fadetime = 16 + math.random() * 4,
 				circle = math.random() > 0.5 and true or false,
-				red = 80 + math.random(30),
+				red = 70 + math.random(30),
 			}
 			particle.x = self.actor.x + (math.random()-0.5)*self.actor.width * 0.3
 			particle.y = self.actor.y + (math.random()-0.5)*self.actor.height * 0.3
@@ -49,15 +49,19 @@ end
 
 function Blood:draw(offset_x, offset_y)
 	for _, v in pairs(self.particles) do
-		local alpha = 255
-		if v.lifetime < 0 then
-			alpha = (1 - (-v.lifetime) / v.fadetime) * 255
-		end
-		love.graphics.setColor(v.red, 0, 0, alpha)
-		if v.circle then
-			love.graphics.circle("fill", v.x - offset_x, v.y - offset_y, v.size)
-		else
-			love.graphics.rectangle("fill", v.x - offset_x, v.y - offset_y, v.size, v.size)
+		local draw_x = v.x - offset_x
+		local draw_y = v.y - offset_y
+		if not(draw_x < 0 or draw_y < 0 or draw_x > width or draw_y > height) then
+			local alpha = 255
+			if v.lifetime < 0 then
+				alpha = (1 - (-v.lifetime) / v.fadetime) * 255
+			end
+			love.graphics.setColor(v.red, 0, 0, alpha)
+			if v.circle then
+				love.graphics.circle("fill", draw_x, draw_y, v.size, 8)
+			else
+				love.graphics.rectangle("fill", draw_x, draw_y, v.size, v.size)
+			end
 		end
 	end
 end
