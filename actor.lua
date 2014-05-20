@@ -47,7 +47,7 @@ function Actor:find_collisions(x_pos, y_pos)
 	local y_pos = y_pos or self.y
 	local collisions = {}
 	for _, actor in pairs(state.actors) do
-		if actor ~= self and actor.collideable and util.dist(actor.x, actor.y, x_pos, y_pos) < (self.width + self.height + actor.width + actor.height) / 6 then
+		if actor ~= self and actor.collideable and util.dist(actor.x, actor.y, x_pos, y_pos) < (self.width + self.height + actor.width + actor.height) / 7 then
 			table.insert(collisions, actor)
 		end
 	end
