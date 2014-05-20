@@ -32,10 +32,16 @@ function State:draw()
 	assert(self.offset_x)
 	assert(self.offset_y)
 	table.sort(self.actors, function(a1, a2)
-		if a1 and a2 and a1.y and a2.y then
-			return a1.y < a2.y
+		if a1 == nil then
+			return false
 		end
-		return false
+		if a2 == nil then
+			return true
+		end
+		if a2.ui_element ~= true and a1.ui_element == true then
+			return false
+		end
+		return (a1.y < a2.y)
 	end)
 	for _, v in pairs(self.actors) do
 		assert(v)

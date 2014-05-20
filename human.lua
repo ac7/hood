@@ -2,6 +2,7 @@
 local Actor = require "actor"
 local Item = require "item"
 local Blood = require "blood"
+local Toast = require "toast"
 local factions = require "factions"
 
 --[[
@@ -79,6 +80,7 @@ end
 function Human:take(item)
 	assert(item and item:is(Item))
 	if self:get_bulk() + item.bulk > self.max_bulk then
+		table.insert(state.actors, Toast("Carrying Too Much Already", item.x, item.y))
 		return
 	end
 
@@ -99,6 +101,8 @@ function Human:take(item)
 			break
 		end
 	end
+
+	table.insert(state.actors, Toast("Taken", item.x, item.y))
 end
 
 function Human:drop(item)

@@ -2,6 +2,7 @@
 local Archer = require "archer"
 local factions = require "factions"
 local Item = require "item"
+local Toast = require "toast"
 
 local Robin = Archer:extends{
 	faction = factions.MERRY_MEN
@@ -39,6 +40,9 @@ function Robin:mousereleased(mx, my, button)
 	if button == "l" then
 		if self.bow_drawn then
 			self:shoot(mx + state.offset_x, my + state.offset_y)
+			if self.arrows <= 0 then
+				table.insert(state.actors, Toast("Out of arrows!", self.x, self.y))
+			end
 		else
 			self.bow_drawn = true
 		end
