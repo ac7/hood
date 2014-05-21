@@ -58,7 +58,7 @@ function Play:__init()
 	actor.y = 320
 	table.insert(self.actors, actor)
 
-	self.bg_color = {108, 215, 108}
+	self.bg_color = {108, 135, 108}
 	self.hud = HUD(self.player)
 
 	self.offset_x = (self.player.x - width/2)
