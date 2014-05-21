@@ -38,7 +38,7 @@ function Actor:draw(offset_x, offset_y)
 	end
 
 	love.graphics.setColor(255,255,255)
-	love.graphics.draw(self.image, self.x - offset_x, self.y - offset_y, 0, 1, 1, self.width/2, self.height/2)
+	love.graphics.draw(self.image, math.floor(xpos + 0.5), math.floor(ypos + 0.5), 0, 1, 1, self.width/2, self.height/2)
 end
 
 

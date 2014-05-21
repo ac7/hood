@@ -44,7 +44,7 @@ end
 function Human:draw(offset_x, offset_y)
 	Human.super.draw(self, offset_x, offset_y)
 	love.graphics.setFont(fonts.small)
-	love.graphics.printf(tostring(self:get_faction()), self.x - offset_x, self.y - offset_y, 0, "left")
+	love.graphics.printf(tostring(self:get_faction()), math.floor(self.x - offset_x), math.floor(self.y - offset_y), 0, "left")
 	self.walking = false
 end
 
@@ -111,10 +111,10 @@ function Human:drop(item)
 	item.holder = nil
 	for k, v in pairs(self.inventory) do
 		if v == item then
+			v.x = self.x + (math.random(v.width) - v.width/2) * 0.5
+			v.y = self.y + math.max(self.height, v.height) - math.min(self.height, v.height)/2 - (#self.inventory * 4)
 			table.remove(self.inventory, k)
 			table.insert(states.play.actors, v)
-			v.x = self.x + (math.random(v.width) - v.width/2) * 0.5
-			v.y = self.y + math.max(self.height, v.height) - math.min(self.height, v.height)/2
 			return
 		end
 	end

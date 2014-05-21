@@ -46,7 +46,7 @@ function State:draw()
 	for _, v in pairs(self.actors) do
 		assert(v)
 		assert(v.draw)
-		v:draw(self.offset_x, self.offset_y)
+		v:draw(math.floor(self.offset_x), math.floor(self.offset_y))
 	end
 end
 
