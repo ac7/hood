@@ -5,7 +5,9 @@ local Item = require "item"
 local Toast = require "toast"
 
 local Robin = Archer:extends{
-	faction = factions.MERRY_MEN
+	faction = factions.MERRY_MEN,
+	pull = 0,
+	pull_requirement = 0.5,
 }
 
 function Robin:update(dt)
@@ -17,12 +19,23 @@ function Robin:update(dt)
 	if love.keyboard.isDown("s") then dir_y = 1; end
 	if love.keyboard.isDown("d") then dir_x = 1; end
 
+	if self.pull > 0 then
+		self.speed = self.speed / 2
+	end
+
 	if dir_x ~= 0 or dir_y ~= 0 then
 		local angle = math.atan2(dir_x, dir_y)
 		local delta_x = math.sin(angle) * dt * self.speed
 		local delta_y = math.cos(angle) * dt * self.speed
 		Robin.super.move(self, delta_x, delta_y)
 	end
+
+	if self.bow_drawn and love.mouse.isDown("l") then
+		self.pull = self.pull + dt
+	else
+		self.pull = 0
+	end
+
 	Robin.super.update(self, dt)
 end
 
@@ -33,16 +46,18 @@ function Robin:keyreleased(key, unicode)
 end
 
 function Robin:mousereleased(mx, my, button)
-	assert(state)
 	if not self.active then
 		return
 	end
 	if button == "l" then
 		if self.bow_drawn then
-			self:shoot(mx + state.offset_x, my + state.offset_y)
-			if self.arrows <= 0 then
-				table.insert(state.actors, Toast("Out of arrows!", self.x, self.y))
+			if self.pull > self.pull_requirement then
+				self:shoot(mx + state.offset_x, my + state.offset_y)
+				if self.arrows <= 0 then
+					table.insert(state.actors, Toast("Out of arrows!", self.x, self.y))
+				end
 			end
+			self.pull = 0
 		else
 			self.bow_drawn = true
 		end
@@ -55,6 +70,16 @@ function Robin:mousereleased(mx, my, button)
 			end
 		end
 	end
+end
+
+function Robin:draw(offset_x, offset_y)
+	if self.bow_drawn and self.pull > 0 then
+		love.graphics.setColor(255, 255, 255, math.max(0, math.min(255, 255 * (self.pull / self.pull_requirement))))
+		love.graphics.setLineWidth(2)
+		local mx, my = love.mouse.getPosition()
+		love.graphics.line(self.x - offset_x, self.y - offset_y, mx, my)
+	end
+	Robin.super.draw(self, offset_x, offset_y)
 end
 
 return Robin
