@@ -22,13 +22,17 @@ function State:update(dt)
 		assert(v.update)
 		if not v.active then
 			table.remove(self.actors, i)
-		elseif not v.asleep then
-			v:update(dt)
-			if util.dist(v.x, v.y, self.player.x, self.player.y) > sleep_distance then
-				v.asleep = true
+		else
+			if self.player then -- some states don't have a player object
+				if not v.asleep then
+					v:update(dt)
+					if util.dist(v.x, v.y, self.player.x, self.player.y) > sleep_distance then
+						v.asleep = true
+					end
+				elseif util.dist(v.x, v.y, self.player.x, self.player.y) < sleep_distance then
+					v.asleep = false
+				end
 			end
-		elseif util.dist(v.x, v.y, self.player.x, self.player.y) < sleep_distance then
-			v.asleep = false
 		end
 	end
 end
