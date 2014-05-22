@@ -67,12 +67,13 @@ function Robin:mousereleased(mx, my, button)
 			self.bow_drawn = true
 		end
 	elseif button == "r" and not self.bow_drawn then
-		for _, v in pairs(state.actors) do
-			assert(v)
-			if v:is(Item) and util.touching(self, v) then
-				self:take(v)
-				break
+		local item = util.closest_touching(self, state.actors, function(actor)
+			if actor:is(Item) then
+				return true
 			end
+		end)
+		if item ~= nil then
+			self:take(item)
 		end
 	end
 end
