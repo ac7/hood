@@ -34,7 +34,7 @@ function util.direction_from_angle(angle)
 	if angle < 0 then
 		angle = (math.pi * 2) + angle
 	end
-	local direction = (angle / math.pi * 4) + 1-- convert from radians to our 8-directional system
+	local direction = (angle / math.pi * 4) + 1.5 -- convert from radians to our 8-directional system
 	direction = math.floor(math.min(8, math.max(1, direction)))
 	return direction
 end
