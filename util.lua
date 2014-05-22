@@ -18,7 +18,7 @@ function util.closest_touching(self, actorlist, validate)
 	assert(not validate or type(validate) == "function")
 	local closest, closest_dist = nil, nil
 	for _, v in pairs(actorlist) do
-		if not validate or validate(v) then
+		if (not validate or validate(v)) and util.touching(self, v) then
 			local dist = util.dist(self.x, self.y, v.x, v.y)
 			if not closest_dist or dist < closest_dist then
 				closest_dist = dist
