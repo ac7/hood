@@ -9,12 +9,15 @@ local Item = require "item"
 local Rock = require "rock"
 local Apple = require "apple"
 
-local Play = State:extends()
+local Play = State:extends{
+	fadeout_time = 5,
+}
 
 function Play:__init()
 	Play.super.__init(self)
 	self.player = Robin()
 	self.player.x = -200
+	self.fadeout_start_time = self.fadeout_time
 	table.insert(self.actors, self.player)
 
 	local actor = NPC("hostile", factions.MERRY_MEN)
@@ -66,6 +69,12 @@ function Play:__init()
 end
 
 function Play:update(dt)
+	if not self.player.active then
+		self.fadeout_time = self.fadeout_time - dt
+		if self.fadeout_time <= 0 then
+			love.event.push("quit")
+		end
+	end
 	self.super.update(self, dt)
 	self.hud:update(dt)
 	self.offset_x = self.offset_x + ((self.player.x - width/2) - self.offset_x) * dt * 5
@@ -75,6 +84,10 @@ end
 function Play:draw()
 	Play.super.draw(self)
 	self.hud:draw()
+	if not self.player.active then
+		love.graphics.setColor(0, 0, 0, 255 * (1 - self.fadeout_time / self.fadeout_start_time))
+		love.graphics.rectangle("fill", 0, 0, width, height)
+	end
 end
 
 function Play:keypressed(key, unicode)
