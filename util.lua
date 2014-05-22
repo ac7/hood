@@ -31,13 +31,12 @@ end
 
 function util.direction_from_angle(angle)
 	assert(type(angle) == "number")
-	angle = angle + math.pi/4 -- the first image on the spritesheet faces south, but the angles start at east
 	if angle < 0 then
 		angle = (math.pi * 2) + angle
 	end
-	local direction = angle / math.pi * 4 -- convert from radians to our 8-directional system
-	direction = math.min(8, math.max(1, direction))
-	return math.floor(direction)
+	local direction = (angle / math.pi * 4) + 1-- convert from radians to our 8-directional system
+	direction = math.floor(math.min(8, math.max(1, direction)))
+	return direction
 end
 
 return util
