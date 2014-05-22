@@ -80,10 +80,13 @@ end
 
 function Robin:draw(offset_x, offset_y)
 	if self.bow_drawn and self.pull > 0 then
-		love.graphics.setColor(255, 255, 255, math.max(0, math.min(255, 255 * (self.pull / self.pull_requirement))))
-		love.graphics.setLineWidth(2)
+		love.graphics.setColor(255, 255, 255, math.max(0, math.min(120, 120 * (self.pull / self.pull_requirement))))
+		love.graphics.setLineWidth(1)
 		local mx, my = love.mouse.getPosition()
 		love.graphics.line(self.x - offset_x, self.y - offset_y, mx, my)
+		love.graphics.setColor(255, 255, 255, 16)
+		love.graphics.arc("fill", self.x - offset_x, self.y - offset_y, self.width * 4/10,
+			0, self.pull / self.pull_requirement * math.pi * 2, 32)
 	end
 	Robin.super.draw(self, offset_x, offset_y)
 end
