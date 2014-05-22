@@ -2,6 +2,7 @@
 Blood = class{
 	lifetime = 0.3,
 	active = true,
+	z = -1,
 	width = 0,
 	height = 0,
 }
@@ -11,7 +12,7 @@ function Blood:__init(actor, angle)
 	self.particles = {}
 	self.actor = actor
 	self.x = self.actor.x
-	self.y = self.actor.y - 9999 -- this is so the blood is drawn underneath everything else
+	self.y = self.actor.y
 	self.angle = angle
 end
 

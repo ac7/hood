@@ -6,7 +6,7 @@ Toast = Actor:extends{
 	fadetime = 1,
 	font = fonts.small,
 	phrase = "Toast",
-	ui_element = true,
+	z = 1,
 	collideable = false,
 }
 

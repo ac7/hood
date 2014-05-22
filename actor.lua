@@ -5,11 +5,13 @@ local util = require "util"
 local Actor = class{
 	x = 0.0,
 	y = 0.0,
+	z = 0, -- layer information, doesn't cause scaling
 	width = 0,
 	height = 0,
 	name = "Actor",
 	image = nil,
-	active = true,
+	active = true, -- if active becomes false then the actor is permanently removed from the world
+	asleep = false,
 	collideable = true,
 }
 

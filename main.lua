@@ -19,6 +19,7 @@ function love.load()
 		large = love.graphics.newFont("data/ModernAntiqua.ttf", 32),
 	}
 	width, height = love.window.getDimensions()
+	sleep_distance = math.max(width, height) * 1.5
 
 	love.graphics.clear()
 	love.graphics.setFont(fonts.large)
@@ -69,5 +70,6 @@ function love.resize(new_width, new_height)
 	assert(type(new_height) == "number")
 	width = new_width
 	height = new_height
+	sleep_distance = math.max(width, height) * 1.5
 end
 

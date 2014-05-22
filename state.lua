@@ -22,8 +22,13 @@ function State:update(dt)
 		assert(v.update)
 		if not v.active then
 			table.remove(self.actors, i)
-		else
+		elseif not v.asleep then
 			v:update(dt)
+			if util.dist(v.x, v.y, self.player.x, self.player.y) > sleep_distance then
+				v.asleep = true
+			end
+		elseif util.dist(v.x, v.y, self.player.x, self.player.y) < sleep_distance then
+			v.asleep = false
 		end
 	end
 end
@@ -38,10 +43,11 @@ function State:draw()
 		if a2 == nil then
 			return true
 		end
-		if a2.ui_element ~= true and a1.ui_element == true then
-			return false
+		if a1.z == a2.z then
+			return a1.y < a2.y
+		else
+			return a1.z < a2.z
 		end
-		return (a1.y < a2.y)
 	end)
 	for _, v in pairs(self.actors) do
 		assert(v)
