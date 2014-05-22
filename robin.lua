@@ -31,7 +31,14 @@ function Robin:update(dt)
 	end
 
 	if self.bow_drawn and love.mouse.isDown("l") then
+		assert(state.offset_x)
+		assert(state.offset_y)
 		self.pull = self.pull + dt
+		local diff_x, diff_y = self.x - state.offset_x, self.y - state.offset_y
+		diff_x = love.mouse.getX() - diff_x
+		diff_y = love.mouse.getY() - diff_y
+		local angle = math.atan2(diff_x, diff_y)
+		self.direction = util.direction_from_delta(diff_x, diff_y)
 	else
 		self.pull = 0
 	end
