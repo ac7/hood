@@ -48,7 +48,7 @@ function State:draw()
 			return true
 		end
 		if a1.z == a2.z then
-			return a1.y < a2.y
+			return a1.y + a1.height/2 < a2.y + a2.height/2
 		else
 			return a1.z < a2.z
 		end
