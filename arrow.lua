@@ -26,9 +26,9 @@ function Arrow:__init(parent, x, y, target_x, target_y)
 	end
 end
 
-function Arrow:move(delta_x, delta_y)
-	self.x = self.x + delta_x
-	self.y = self.y + delta_y
+function Arrow:move(angle, speed)
+	self.x = self.x + math.sin(angle) * speed
+	self.y = self.y + math.cos(angle) * speed
 	for _,v in pairs(self:find_collisions(self.x, self.y)) do
 		if v.active and v ~= self.parent and v ~= self
 		and util.touching(self, v) then
@@ -42,7 +42,7 @@ function Arrow:move(delta_x, delta_y)
 end
 
 function Arrow:update(dt)
-	self:move(math.sin(self.angle) * dt * self.speed, math.cos(self.angle) * dt * self.speed)
+	self:move(self.angle, self.speed * dt)
 	self.lifetime = self.lifetime - dt
 	if self.lifetime < 0 then
 		self.active = false

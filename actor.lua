@@ -54,9 +54,11 @@ function Actor:find_collisions(x_pos, y_pos)
 	return collisions
 end
 
-function Actor:move(delta_x, delta_y)
-	assert(type(delta_x) == "number")
-	assert(type(delta_y) == "number")
+function Actor:move(angle, distance)
+	assert(type(angle) == "number")
+	assert(type(distance) == "number")
+	local delta_x = math.sin(angle) * distance
+	local delta_y = math.cos(angle) * distance
 	local x_collision, y_collision = false, false
 	if #self:find_collisions(self.x + delta_x, self.y) > 0 then
 		x_collision = true

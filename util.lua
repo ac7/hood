@@ -11,21 +11,15 @@ function util.touching(obj1, obj2)
 	return util.dist(obj1.x, obj1.y, obj2.x, obj2.y) < (obj1.width + obj2.width + obj1.height + obj2.height) / 4
 end
 
-function util.direction_from_delta(delta_x, delta_y)
-	local new_direction = ""
-
-	if delta_y < -0.1 then
-		new_direction = "north"
-	elseif delta_y > 0.1 then
-		new_direction = "south"
+function util.direction_from_angle(angle)
+	assert(type(angle) == "number")
+	angle = angle + math.pi/4 -- the first image on the spritesheet faces south, but the angles start at east
+	if angle < 0 then
+		angle = (math.pi * 2) + angle
 	end
-	if delta_x < -0.1 then
-		new_direction = new_direction .. "west"
-	elseif delta_x > 0.1 then
-		new_direction = new_direction .. "east"
-	end
-
-	return #new_direction > 0 and new_direction or nil
+	local direction = angle / math.pi * 4 -- convert from radians to our 8-directional system
+	direction = math.min(8, math.max(1, direction))
+	return math.floor(direction)
 end
 
 return util

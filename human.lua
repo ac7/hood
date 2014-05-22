@@ -14,7 +14,7 @@ local Human = Actor:extends{
 	health = 50,
 	max_hp = 50,
 	max_bulk = 25.0,
-	direction = "south",
+	direction = 5,
 	walk = 1,
 	walking = false,
 	faction = factions.MERRY_MEN,
@@ -121,11 +121,11 @@ function Human:drop(item)
 	error("Cannot drop item not present in inventory.")
 end
 
-function Human:move(delta_x, delta_y)
-	self.direction = util.direction_from_delta(delta_x, delta_y) or self.direction
+function Human:move(angle, distance)
+	self.direction = util.direction_from_angle(angle)
 	self.walking = true
 
-	return Human.super.move(self, delta_x, delta_y)
+	return Human.super.move(self, angle, distance)
 end
 
 return Human

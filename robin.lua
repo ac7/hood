@@ -25,9 +25,7 @@ function Robin:update(dt)
 
 	if dir_x ~= 0 or dir_y ~= 0 then
 		local angle = math.atan2(dir_x, dir_y)
-		local delta_x = math.sin(angle) * dt * self.speed
-		local delta_y = math.cos(angle) * dt * self.speed
-		Robin.super.move(self, delta_x, delta_y)
+		Robin.super.move(self, angle, dt * self.speed)
 	end
 
 	if self.bow_drawn and love.mouse.isDown("l") then
@@ -38,7 +36,7 @@ function Robin:update(dt)
 		diff_x = love.mouse.getX() - diff_x
 		diff_y = love.mouse.getY() - diff_y
 		local angle = math.atan2(diff_x, diff_y)
-		self.direction = util.direction_from_delta(diff_x, diff_y)
+		self.direction = util.direction_from_angle(angle)
 	else
 		self.pull = 0
 	end

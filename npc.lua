@@ -35,7 +35,7 @@ function NPC:update(dt)
 			choose_new_point = true
 		else
 			local angle = math.atan2(self.wander_point_x - self.x, self.wander_point_y - self.y)
-			local path_clear = self:move(math.sin(angle) * dt * self.speed, math.cos(angle) * dt * self.speed)
+			local path_clear = self:move(angle, dt * self.speed)
 
 			if not path_clear then
 				self.wander_point_x = self.x + (math.random() - 0.5) * self.wander_distance

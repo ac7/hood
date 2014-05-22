@@ -41,7 +41,7 @@ function Archer:shoot(target_x, target_y)
 	if self.arrows < 1 then return end
 	self.arrows = self.arrows - 1
 
-	self.direction = util.direction_from_delta(target_x - self.x, target_y - self.y)
+	self.direction = util.direction_from_angle(math.atan2(target_x - self.x, target_y - self.y))
 
 	local arrow = Arrow(self, self.x, self.y, target_x, target_y)
 	table.insert(state.actors, arrow)
