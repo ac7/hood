@@ -10,13 +10,13 @@ local Archer = Human:extends{
 	bow_drawn = false,
 	walk_speed = 200,
 	run_speed = 325,
+	packs = {
+		normal = spritepack("archer"),
+		bow_drawn = spritepack("archer2"),
+	},
 }
 
 function Archer:__init()
-	self.packs = {
-		normal = spritepack("archer"),
-		bow_drawn = spritepack("archer2"),
-	}
 	Archer.super.__init(self, self.packs.normal)
 end
 

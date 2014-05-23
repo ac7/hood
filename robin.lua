@@ -3,12 +3,17 @@ local Archer = require "archer"
 local factions = require "factions"
 local Item = require "item"
 local Toast = require "toast"
+local spritepack = require "spritepack"
 
 local Robin = Archer:extends{
 	faction = factions.MERRY_MEN,
 	pull = 0,
 	pull_requirement = 0.5,
 	speed = Archer.run_speed,
+	packs = {
+		normal = spritepack("robinhoodbowless"),
+		bow_drawn = spritepack("robinhood"),
+	},
 }
 
 function Robin:update(dt)
