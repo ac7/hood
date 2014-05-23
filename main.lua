@@ -13,6 +13,8 @@ function set_state(new_state)
 end
 
 function love.load()
+	math.randomseed(os.time())
+
 	fonts = {
 		small = love.graphics.newFont("data/ModernAntiqua.ttf", 16),
 		medium = love.graphics.newFont("data/ModernAntiqua.ttf", 25),
@@ -33,8 +35,6 @@ function love.load()
 	states.inventory = (require "inventory")()
 	states.title = (require "title")()
 	set_state(states.title)
-
-	math.randomseed(os.time())
 
 	for _,v in pairs({"keypressed", "mousepressed", "mousereleased"}) do
 		love[v] = function(...)

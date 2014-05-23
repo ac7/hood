@@ -8,6 +8,7 @@ local Robin = Archer:extends{
 	faction = factions.MERRY_MEN,
 	pull = 0,
 	pull_requirement = 0.5,
+	speed = Archer.run_speed,
 }
 
 function Robin:update(dt)

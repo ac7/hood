@@ -1,13 +1,11 @@
 
 local State = require "state"
 local Robin = require "robin"
-local Tree = require "tree"
 local NPC = require "npc"
 local factions = require "factions"
 local HUD = require "hud"
 local Item = require "item"
-local Rock = require "rock"
-local Apple = require "apple"
+local generate = require "generate"
 
 local Play = State:extends{
 	fadeout_time = 5,
@@ -18,48 +16,9 @@ function Play:__init()
 	self.player = Robin()
 	self.player.x = -200
 	self.fadeout_start_time = self.fadeout_time
-	table.insert(self.actors, self.player)
 
-	local actor = NPC("hostile", factions.MERRY_MEN)
-	actor.x = 32
-	actor.y = 128
-	table.insert(self.actors, actor)
-	actor = Rock()
-	actor.x = -300
-	actor.y = 48
-	table.insert(self.actors, actor)
-	actor = Rock()
-	actor.x = 128
-	actor.y = 48
-	table.insert(self.actors, actor)
-	actor = Apple()
-	actor.x = -400
-	actor.y = 40
-	table.insert(self.actors, actor)
-	actor = Apple()
-	actor.x = -400
-	actor.y = 10
-	table.insert(self.actors, actor)
-	actor = NPC("hostile", factions.PRINCE_JOHN)
-	actor.x = 240
-	actor.y = 48
-	table.insert(self.actors, actor)
-	actor = NPC("hostile", factions.PRINCE_JOHN)
-	actor.x = 100
-	actor.y = -128
-	table.insert(self.actors, actor)
-	actor = Tree()
-	actor.x = 255
-	actor.y = -320
-	table.insert(self.actors, actor)
-	actor = Tree()
-	actor.x = 0
-	actor.y = -320
-	table.insert(self.actors, actor)
-	actor = Tree()
-	actor.x = -255
-	actor.y = 320
-	table.insert(self.actors, actor)
+	table.insert(self.actors, self.player)
+	generate(self.actors)
 
 	self.bg_color = {108, 135, 108}
 	self.hud = HUD(self.player)

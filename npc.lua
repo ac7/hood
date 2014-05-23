@@ -24,6 +24,7 @@ function NPC:take_damage(amount, angle)
 	NPC.super.take_damage(self, amount, angle)
 	self.hostile_timeout = 3
 	self.strategy = "hostile"
+	self.bow_drawn = true
 end
 
 function NPC:update(dt)
@@ -51,7 +52,7 @@ function NPC:update(dt)
 			self.wander_point_y = self.y + (math.random() - 0.5) * self.wander_distance
 		elseif self.strategy == "hostile" then
 			self.bow_drawn = true
-			local closest_distance = nil
+			local closest_distance = 600
 			local closest_actor = nil
 
 			for _, actor in pairs(state.actors) do
